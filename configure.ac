@@ -75,13 +75,19 @@ AM_CONDITIONAL([AMX_HAVE_LIBEVENT], [test "$success" = "yes"])
 AX_LIB_ZLIB([1.2.3])
 AM_CONDITIONAL([AMX_HAVE_ZLIB], [test "$success" = "yes"])
 
-AX_THRIFT_LIB(csharp, [C#], yes)
-if test "$with_csharp" = "yes";  then
-  PKG_CHECK_MODULES(MONO, mono >= 2.0.0, net_3_5=yes, net_3_5=no)
-  PKG_CHECK_MODULES(MONO, mono >= 1.2.4, have_mono=yes, have_mono=no)
-fi
-AM_CONDITIONAL(WITH_MONO, [test "$have_mono" = "yes"])
-AM_CONDITIONAL(NET_2_0, [test "$net_3_5" = "no"])
+dnl
+dnl This section bombs on OS X
+dnl
+dnl AX_THRIFT_LIB(csharp, [C#], yes)
+dnl if test "$with_csharp" = "yes";  then
+dnl  PKG_CHECK_MODULES(MONO, mono >= 2.0.0, net_3_5=yes, net_3_5=no)
+dnl  PKG_CHECK_MODULES(MONO, mono >= 1.2.4, have_mono=yes, have_mono=no)
+dnl fi
+dnl AM_CONDITIONAL(WITH_MONO, [test "$have_mono" = "yes"])
+dnl AM_CONDITIONAL(NET_2_0, [test "$net_3_5" = "no"])
+
+AM_CONDITIONAL(WITH_MONO, false)
+AM_CONDITIONAL(NET_2_0, false)
 
 AX_THRIFT_LIB(java, [Java], yes)
 if test "$with_java" = "yes";  then
